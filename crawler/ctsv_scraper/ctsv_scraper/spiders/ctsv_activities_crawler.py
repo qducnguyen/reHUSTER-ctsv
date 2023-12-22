@@ -1,4 +1,4 @@
-from typing import Any, Iterable
+from typing import Iterable
 import scrapy
 import json
 
@@ -15,8 +15,8 @@ class CTSVActivitySpider(scrapy.Spider):
     body = activities_body 
 
     min_acitivites_id = 0
-    expected_maximum_acitivites_id = 8900
-
+    expected_maximum_acitivites_id = 9085  # 18:17:00 23/12/22
+ 
     def start_requests(self) -> Iterable[Request]:
         for i in range(self.min_acitivites_id, self.expected_maximum_acitivites_id):
             
