@@ -2,4 +2,7 @@ pandas
 matplotlib
 trafilatura
 seaborn
-recommenders
+implicit
+pytorch
+numpy
+scipy
