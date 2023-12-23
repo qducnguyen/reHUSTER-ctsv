@@ -1,6 +1,7 @@
 import os
 import time
 import argparse
+from tqdm import tqdm
 import numpy as np
 
 import torch
@@ -59,7 +60,7 @@ parser.add_argument("--num_ng",
 
 parser.add_argument("--test_num_ng", 
 	type=int,
-	default=99, 
+	default=19, 
 	help="sample part of negative items for testing")
 
 parser.add_argument("--out", 
@@ -121,7 +122,7 @@ for epoch in range(args.epochs):
 	start_time = time.time()
 	train_loader.dataset.ng_sample()
 
-	for user, item, label in train_loader:
+	for user, item, label in tqdm(train_loader):
 		user = user.cuda()
 		item = item.cuda()
 		label = label.float().cuda()
@@ -133,6 +134,8 @@ for epoch in range(args.epochs):
 		optimizer.step()
 		# writer.add_scalar('data/loss', loss.item(), count)
 		count += 1
+		if not count % 5000:
+			print(loss.item())
 
 	model.eval()
 	HR, NDCG = evaluate.metrics(model, test_loader, args.top_k)

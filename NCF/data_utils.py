@@ -1,4 +1,5 @@
 import numpy as np 
+import pickle
 import pandas as pd 
 import scipy.sparse as sp
 
@@ -10,13 +11,12 @@ import config
 def load_all(test_num=100):
 	
 	""" We load all the three file here to save time in each epoch. """
-	train_data = pd.read_csv(
-		config.train_rating, 
-		sep='\t', header=None, names=['user', 'item'], 
-		usecols=[0, 1], dtype={0: np.int32, 1: np.int32})
 
-	user_num = train_data['user'].max() + 1
-	item_num = train_data['item'].max() + 1
+	with open(config.train_rating, "rb") as f:
+		train_data = pickle.load(f)[["user_id", "activity_id"]]
+
+	user_num = train_data['user_id'].max() + 1
+	item_num = train_data['activity_id'].max() + 1
 
 	train_data = train_data.values.tolist()
 
@@ -26,15 +26,24 @@ def load_all(test_num=100):
 		train_mat[x[0], x[1]] = 1.0
 
 	test_data = []
-	with open(config.test_negative, 'r') as fd:
-		line = fd.readline()
-		while line != None and line != '':
-			arr = line.split('\t')
-			u = eval(arr[0])[0]
-			test_data.append([u, eval(arr[0])[1]])
-			for i in arr[1:]:
-				test_data.append([u, int(i)])
-			line = fd.readline()
+	with open(config.test_negative, "rb") as f:
+		temp_data = pickle.load(f)
+	for data in temp_data:
+		u = data[0][0]
+		test_data.append(data[0])
+		for neg in data[1]:
+			test_data.append([u, neg])
+
+	# with open(config.test_negative, 'r') as fd:
+	# 	line = fd.readline()
+	# 	while line != None and line != '':
+	# 		arr = line.split('\t')
+	# 		u = eval(arr[0])[0]
+	# 		test_data.append([u, eval(arr[0])[1]])
+	# 		for i in arr[1:]:
+	# 			test_data.append([u, int(i)])
+	# 		line = fd.readline()
+	
 	return train_data, test_data, user_num, item_num, train_mat
 
 
