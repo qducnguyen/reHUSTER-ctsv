@@ -1,6 +1,7 @@
 #
 output/
 output.zip
+!output/negative_test_rating_19N.pkl
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
