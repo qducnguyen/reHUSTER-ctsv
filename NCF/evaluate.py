@@ -18,7 +18,7 @@ def ndcg(gt_item, pred_items):
 def metrics(model, test_loader, top_k):
 	HR, NDCG = [], []
 
-	for user, item, label in test_loader:
+	for user, item, _ in test_loader:
 		user = user.cuda()
 		item = item.cuda()
 
