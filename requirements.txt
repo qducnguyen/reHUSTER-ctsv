@@ -2,3 +2,5 @@ pandas
 matplotlib
 trafilatura
 implicit
+pytorch
+numpy
