@@ -69,7 +69,7 @@ parser.add_argument("--out",
 
 parser.add_argument("--gpu", 
 	type=str,
-	default="7",  
+	default="0",  
 	help="gpu card ID")
 
 args = parser.parse_args()

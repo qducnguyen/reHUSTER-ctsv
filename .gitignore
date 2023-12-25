@@ -2,7 +2,8 @@
 output/
 output.zip
 !output/negative_test_rating_19N.pkl
-notebooks/models
+notebooks/models/
+!.gitkeep
 *.pth
 *.h5
 
