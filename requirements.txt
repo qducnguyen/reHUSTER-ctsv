@@ -6,3 +6,7 @@ implicit
 pytorch
 numpy
 scipy
+sklearn
+sentence-transformers
+pyvi
+tensorflow
