@@ -2,7 +2,9 @@
 output/
 output.zip
 !output/negative_test_rating_19N.pkl
+notebooks/models
 *.pth
+*.h5
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
